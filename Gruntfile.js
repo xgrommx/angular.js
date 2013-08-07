@@ -10,7 +10,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine-node');
   grunt.loadNpmTasks('grunt-ddescribe-iit');
   grunt.loadNpmTasks('grunt-merge-conflict');
-  grunt.loadNpmTasks('grunt-parallel');
   grunt.loadTasks('lib/grunt');
 
   var NG_VERSION = util.getVersion();
@@ -26,18 +25,13 @@ module.exports = function(grunt) {
     NG_VERSION: NG_VERSION,
 
     parallel: {
-      travis: {
-        options: {
-          stream: true
-        },
-        tasks: [
-          util.parallelTask('test:docs'),
-          util.parallelTask('test:modules'),
-          util.parallelTask('test:jquery'),
-          util.parallelTask('test:jqlite'),
-          util.parallelTask('test:e2e')
-        ]
-      }
+      travis: [
+        'test:docs',
+        'test:modules',
+        'test:jquery',
+        'test:jqlite',
+        'test:e2e'
+      ]
     },
 
     connect: {
